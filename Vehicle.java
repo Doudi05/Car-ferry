@@ -11,6 +11,10 @@ public abstract class Vehicle {
 		this.longueur = longueur;
 		this.conducteur = conducteur;
 	}
+	
+	public Vehicle() {
+		
+	}
 
 	public String getImmatriculation()
 	{

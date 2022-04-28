@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class Main {
 
@@ -10,7 +11,20 @@ public class Main {
 		Camion c1 = new Camion("AZ 678 DF", 4, 12, new Conducteur("Grant", "Philip", "20FF"), 15);
 		Camion c2 = new Camion("QS 543 HJ", 5.2, 13.5, new Conducteur("Scott", "Simon", "B55JG"), 22.5);
 		Camion c3 = new Camion("BN 321 XC", 4.5, 15, new Conducteur("Lambert", "Alain", "C44Djk"), 18);
+		
+		List<String> listing = new ArrayList<String>();
+		listing.add(v1.getConducteur().getNom());
+		listing.add(v2.getConducteur().getNom());
+		listing.add(v3.getConducteur().getNom());
+		listing.add(c1.getConducteur().getNom());
+		listing.add(c2.getConducteur().getNom());
+		listing.add(c3.getConducteur().getNom());
+		Collections.sort(listing);
+		System.out.println("After Sorting: "+ listing);
+		
+		Ticket tk = new Ticket('D', 2, v1);
+		System.out.println(tk);
+		
 
 	}
-
 }

@@ -1,13 +1,13 @@
 
 public class Conducteur {
-	private String Nom;
-	private String Prenom;
+	private String nom;
+	private String prenom;
 	private String numPermis;
 	
-	public Conducteur(String Nom, String Prenom, String numPermis){
-		Nom = this.Nom;
-		Prenom = this.Prenom;
-		numPermis = this.numPermis;
+	public Conducteur(String nom, String prenom, String numPermis){
+		this.nom = nom;
+		this.prenom = prenom;
+		this.numPermis = numPermis;
 	}
 
 	public Conducteur() {
@@ -16,12 +16,12 @@ public class Conducteur {
 
 	public String getNom()
 	{
-		return Nom;
+		return nom;
 	}
 	
 	public String getPrenom()
 	{
-		return Prenom;
+		return prenom;
 	}
 	
 	public String getNumPermis()
