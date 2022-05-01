@@ -4,10 +4,10 @@ public class Camion extends Vehicle{
 	
 	public Camion(String string, double d, double e, Conducteur conducteur, double poidsCargaison){
 		super(string, d, e , conducteur);
-		poidsCargaison = this.poidsCargaison;
+		this.poidsCargaison = poidsCargaison;
 	}
 	
-	public double getpoidsCargaison()
+	public double getPoidsCargaison()
 	{
 		return poidsCargaison;
 	}

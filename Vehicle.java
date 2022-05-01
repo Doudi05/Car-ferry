@@ -31,4 +31,8 @@ public abstract class Vehicle {
 	{
 		return this.conducteur;
 	}
+
+	public String toString(){
+		return immatriculation + " : "+ conducteur;
+	}
 }

@@ -4,7 +4,7 @@ public class Voiture extends Vehicle{
 	
 	public Voiture(String string, double d, double e, Conducteur conducteur, int nbPassagers) {
 		super(string, d, e , conducteur);
-		nbPassagers = this.nbPassagers;
+		this.nbPassagers = nbPassagers;
 	}
 
 	public int getNbPassengers()
