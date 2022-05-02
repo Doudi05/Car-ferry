@@ -4,10 +4,13 @@ public class Ferry{
 	private Deque<Vehicle> rangDroite;
 	private Deque<Vehicle> rangGauche;
 
+	private TreeSet<Ticket> listing;
+
 	private double longDroite, longGauche;
 	private double taille;
 
 	private double chargeMax, chargeDroite, chargeGauche;
+	private int indG, indD;
 	private int nbPassagers;
 
 	Ferry(double taille, double chargeMax){
@@ -18,10 +21,15 @@ public class Ferry{
 		this.chargeDroite = 0;
 		this.chargeGauche = 0;
 
+		this.indD = 1;
+		this.indG = 1;
+
 		this.rangGauche = new LinkedList<Vehicle>();
 		this.rangDroite = new LinkedList<Vehicle>();
 		this.longDroite = 0;
 		this.longGauche = 0;
+
+		this.listing = new TreeSet<Ticket>();
 	}
 
 	public int embarquement(Vehicle v){
@@ -29,6 +37,8 @@ public class Ferry{
 			if(verifTaille(v, longGauche) && verifPoids(v)){
 				rangGauche.offerLast(v);
 				longGauche += v.getLongueur() + 0.5;
+				listing.add(new Ticket('G', indG, v));
+				indG++;
 
 				if(v instanceof Camion){
 					Camion c = (Camion)v;
@@ -47,6 +57,9 @@ public class Ferry{
 			if(verifTaille(v,longDroite) && verifPoids(v)){
 				rangDroite.offerLast(v);
 				longDroite += v.getLongueur() + 0.5;
+
+				listing.add(new Ticket('D', indD, v));
+				indD++;
 			}
 			else{
 				System.out.println("Erreur lors de l'ajout du véhicule");
@@ -66,6 +79,7 @@ public class Ferry{
 			Voiture v1 = (Voiture)v;
 			nbPassagers += v1.getNbPassengers() + 1;
 		}
+
 
 		System.out.println("Vehicule ajouté !");
 		return 1;
@@ -98,7 +112,7 @@ public class Ferry{
 	}
 
 	public String toString(){
-		String str = "Ferry :";
+		String str = "\nFerry :";
 
 		str += "\n\tRangée gauche :\n";
 
@@ -112,7 +126,13 @@ public class Ferry{
 			str+="\t- "+v+"\n";
 		}
 
-		str+="Poids à gauche : "+chargeGauche+" / Poids à droite : "+chargeDroite;
+		str+="\nPoids à gauche : "+chargeGauche+" / Poids à droite : "+chargeDroite+"\n\n";
+
+		str += "Listing des tickets :\n";
+
+		for(Ticket t : listing){
+			str += t +"\n";
+		}
 		return str;
 
 	}
