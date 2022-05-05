@@ -1,17 +1,19 @@
 
-public class Ticket{
+public class Ticket implements Comparable{
 	private char place;
 	private int rang;
 	private Vehicle vehicle;
+	private String nom;
+	private String prenom;
+	private double tarif;
 	
 	public Ticket(char place, int rang, Vehicle vehicle) {
 		this.place = place;
 		this.rang = rang;
 		this.vehicle = vehicle;
-	}
-	
-	public Ticket() {
-		
+		nom = vehicle.getConducteur().getNom();
+		prenom = vehicle.getConducteur().getPrenom();
+		setTarif();
 	}
 	
 	public char getPlace(){
@@ -22,22 +24,42 @@ public class Ticket{
 		return rang;
 	}
 	
-	public double getTarif(Vehicle vehicule){
-		double tarif = 2;
-		if(vehicule instanceof Voiture) {
-			tarif = 35.0 + 3*((Voiture) vehicule).getNbPassengers();
-		}else if(vehicule instanceof Camion) {
-			tarif = 45.0 + 0.1*((Camion) vehicule).getpoidsCargaison();
+	public void setTarif(){
+		if(vehicle instanceof Voiture) {
+			Voiture v = (Voiture)vehicle;
+			tarif = 35.0 + 3*v.getNbPassengers();
+		}else if(vehicle instanceof Camion) {
+			Camion v = (Camion)vehicle;
+			tarif = 45.0 + 0.1*v.getPoidsCargaison();
 		}
-		return tarif;
+	}
+
+	public double getTarif(){
+		return this.tarif;
 	}
 	
 	public String toString(){
-		String st1 = vehicle.getConducteur().getNom() + " " + vehicle.getConducteur().getPrenom() + "\n";
-		String st2 = "Position du véhicule dans la cale : " + getPlace() + "\n";
-		String st3 = "numéro du rang dans la rangée : " + getRang() + "\n";
-		String st4 = "Le tarif de la traversée : " + getTarif(vehicle);
-		return st1 + st2 + st3 + st4;
+		String st1 = "\t"+nom + " " + prenom + "\n";
+		String st2 = "\tPosition du véhicule dans la cale : " + place + "\n";
+		String st3 = "\tnuméro du rang dans la rangée : " + rang + "\n";
+		String st4 = "\tLe tarif de la traversée : " + tarif;
+		return st1 + st2 + st3 + st4 + "\n";
 		
+	}
+
+	public int compareTo(Object o){
+		if(o instanceof Ticket){
+			Ticket t = (Ticket)o;
+			if(this.nom.equals(t.nom)){
+				return this.prenom.compareTo(t.prenom);
+			}
+
+			return this.nom.compareTo(t.nom);	
+		}
+		return -2;
+	}
+
+	public boolean equals(Ticket t){
+		return (this.place == t.place) && (this.rang == t.rang) && (this.vehicle.equals(t.vehicle));
 	}
 }

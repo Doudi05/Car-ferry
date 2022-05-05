@@ -7,10 +7,6 @@ public class Voiture extends Vehicle{
 		this.nbPassagers = nbPassagers;
 	}
 
-	public Voiture() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public int getNbPassengers()
 	{
 		return nbPassagers;

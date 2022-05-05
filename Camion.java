@@ -7,11 +7,7 @@ public class Camion extends Vehicle{
 		this.poidsCargaison = poidsCargaison;
 	}
 	
-	public Camion() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public double getpoidsCargaison()
+	public double getPoidsCargaison()
 	{
 		return poidsCargaison;
 	}

@@ -28,4 +28,8 @@ public class Conducteur {
 	{
 		return numPermis;
 	}
+
+	public String toString(){
+		return nom + " " + prenom;
+	}
 }
