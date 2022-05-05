@@ -34,7 +34,9 @@ public class Ferry{
 
 	public int embarquement(Vehicle v){
 		if(chargeDroite >= chargeGauche){
-			if(verifTaille(v, longGauche) && verifPoids(v)){
+			try{
+				verifTaille(v, longGauche);
+				verifPoids(v);
 				rangGauche.offerLast(v);
 				longGauche += v.getLongueur() + 0.5;
 				listing.add(new Ticket('G', indG, v));
@@ -48,30 +50,32 @@ public class Ferry{
 					chargeGauche += v.getPoidsVide();
 				}
 			}
-			else{
-				System.out.println("Erreur lors de l'ajout du véhicule");
+			catch(Exception e){
+				System.out.println(e.getMessage());
 				return -1;
 			}
 		}
 		else if(chargeDroite < chargeGauche){
-			if(verifTaille(v,longDroite) && verifPoids(v)){
+			try{
+				verifTaille(v, longDroite);
+				verifPoids(v);
 				rangDroite.offerLast(v);
 				longDroite += v.getLongueur() + 0.5;
 
 				listing.add(new Ticket('D', indD, v));
 				indD++;
-			}
-			else{
-				System.out.println("Erreur lors de l'ajout du véhicule");
-				return -1;
-			}
 
-			if(v instanceof Camion){
+				if(v instanceof Camion){
 					Camion c = (Camion)v;
 					chargeDroite += v.getPoidsVide() + c.getPoidsCargaison();
+				}
+				else{
+						chargeDroite += v.getPoidsVide();
+				}
 			}
-			else{
-					chargeDroite += v.getPoidsVide();
+			catch(Exception e){
+				System.out.println(e.getMessage());
+				return -1;
 			}
 		}
 
@@ -85,30 +89,54 @@ public class Ferry{
 		return 1;
 	}
 
-	private boolean verifTaille(Vehicle v, double longueur){
+	private void verifTaille(Vehicle v, double longueur) throws LengthException{
 		if((v.getLongueur()+longueur) >= taille){
-			return false;
+			throw new LengthException("Erreur : Taille restante insuffisante. Vehicule non ajouté.");
 		}
-
-		return true;
 	}
 
-	private boolean verifPoids(Vehicle v){
+	private void verifPoids(Vehicle v) throws WeightException{
 		if(v instanceof Camion){
 			Camion c = (Camion)v;
 			if((v.getPoidsVide() + c.getPoidsCargaison() + chargeDroite + chargeGauche) > chargeMax){
-				return false;
+				throw new WeightException("Erreur : Vehicule trop lourd. Vehicule non ajouté.");
 			}
 		}
 		else if((v.getPoidsVide() + chargeDroite + chargeGauche) > chargeMax){
-			return false;
+			throw new WeightException("Erreur : Vehicule trop lourd. Vehicule non ajouté.");
 		}
-
-		return true;
 	}
 
 	public void debarquement(){
+		System.out.println("Debarquement des vehicules...\n");
+		Vehicle deb;
 
+		while(!rangGauche.isEmpty() || !rangDroite.isEmpty()){
+			if(chargeDroite >= chargeGauche){
+				deb = rangDroite.pollFirst();
+
+				if(deb instanceof Camion){
+					Camion c = (Camion)deb;
+					chargeDroite -= c.getPoidsVide() + c.getPoidsCargaison();
+				}
+				else{
+					chargeDroite -= deb.getPoidsVide();
+				}
+			}
+			else{
+				deb = rangGauche.pollFirst();
+
+				if(deb instanceof Camion){
+					Camion c = (Camion)deb;
+					chargeGauche -= c.getPoidsVide() + c.getPoidsCargaison();
+				}
+				else{
+					chargeGauche -= deb.getPoidsVide();
+				}
+			}
+
+			System.out.println("Vehicule débarqué :\n\t"+deb+"\n");
+		}
 	}
 
 	public String toString(){
