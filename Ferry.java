@@ -1,9 +1,13 @@
 import java.util.*;
 
+/**
+ * @author Roux-Akel
+ *
+ */
 public class Ferry{
 	
-	private Rangee rangeeD;
-	private Rangee rangeeG;
+	private Rangee raD;
+	private Rangee raG;
 
 	private TreeSet<Ticket> listing;
 
@@ -11,33 +15,42 @@ public class Ferry{
 	private double chargeMax;
 	private int nbPassagers;
 
-	Ferry(double taille, double chargeMax, Rangee rangeeD, Rangee rangeeG){
+	/**
+	 * @param taille de la cale
+	 * @param chargeMax de la cale
+	 */
+	Ferry(double taille, double chargeMax){
 		this.taille = taille;
 		this.chargeMax = chargeMax;
 		this.nbPassagers = 0;
 
-		this.rangeeD = rangeeD;
-		this.rangeeG = rangeeG;
+		this.raG = new Rangee();
+		this.raD = new Rangee();
 
 		this.listing = new TreeSet<Ticket>();
 	}
 
+	/**
+	 * embarquer les véhicules
+	 * @param v véhicule
+	 * @return 1 si embarquement réussi, -1 sinon
+	 */
 	public int embarquement(Vehicle v){
-		if(rangeeD.getCharge() >= rangeeG.getCharge()){
+		if(raD.getCharge() >= raG.getCharge()){
 			try{
-				verifTaille(v, rangeeG.getLongueur());
+				verifTaille(v, raG.getLongueur());
 				verifPoids(v);
-				rangeeG.getRangee().offerLast(v);
-				longGauche += v.getLongueur() + 0.5;
-				listing.add(new Ticket('G', indG, v));
-				indG++;
+				raG.getRangee().offerLast(v);
+				raG.addLongueur(v.getLongueur() + 0.5);
+				listing.add(new Ticket('G', raG.getRang(), v));
+				raG.incrRang();
 
 				if(v instanceof Camion){
 					Camion c = (Camion)v;
-					chargeGauche += v.getPoidsVide() + c.getPoidsCargaison();
+					raG.addCharge(v.getPoidsVide() + c.getPoidsCargaison());
 				}
 				else{
-					chargeGauche += v.getPoidsVide();
+					raG.addCharge(v.getPoidsVide());
 				}
 			}
 			catch(Exception e){
@@ -45,22 +58,22 @@ public class Ferry{
 				return -1;
 			}
 		}
-		else if(chargeDroite < chargeGauche){
+		else if(raD.getCharge() < raG.getCharge()){
 			try{
-				verifTaille(v, longDroite);
+				verifTaille(v, raD.getLongueur());
 				verifPoids(v);
-				rangDroite.offerLast(v);
-				longDroite += v.getLongueur() + 0.5;
+				raD.getRangee().offerLast(v);
+				raD.addLongueur(v.getLongueur() + 0.5);
 
-				listing.add(new Ticket('D', indD, v));
-				indD++;
+				listing.add(new Ticket('D', raD.getRang(), v));
+				raD.incrRang();
 
 				if(v instanceof Camion){
 					Camion c = (Camion)v;
-					chargeDroite += v.getPoidsVide() + c.getPoidsCargaison();
+					raD.addCharge(v.getPoidsVide() + c.getPoidsCargaison());
 				}
 				else{
-						chargeDroite += v.getPoidsVide();
+						raD.addCharge(v.getPoidsVide()); 
 				}
 			}
 			catch(Exception e){
@@ -75,80 +88,93 @@ public class Ferry{
 		}
 
 
-		System.out.println("Vehicule ajouté !");
+		//System.out.println("Vehicule ajouté !");
 		return 1;
 	}
 
+	/**
+	 * vérifier la taille de la cale
+	 * Lancer une exception en cas de dépassement de longueur maximale
+	 * @param v véhicule
+	 * @param longueur de la cale
+	 * @throws LengthException
+	 */
 	private void verifTaille(Vehicle v, double longueur) throws LengthException{
 		if((v.getLongueur()+longueur) >= taille){
 			throw new LengthException("Erreur : Taille restante insuffisante. Vehicule non ajouté.");
 		}
 	}
 
+	/**
+	 * vérifier le poids de la cale
+	 * Lancer une exception en cas de dépassement de poids maximale
+	 * @param v véhicule
+	 * @throws WeightException
+	 */
 	private void verifPoids(Vehicle v) throws WeightException{
 		if(v instanceof Camion){
 			Camion c = (Camion)v;
-			if((v.getPoidsVide() + c.getPoidsCargaison() + chargeDroite + chargeGauche) > chargeMax){
+			if((v.getPoidsVide() + c.getPoidsCargaison() + raD.getCharge() + raG.getCharge()) > chargeMax){
 				throw new WeightException("Erreur : Vehicule trop lourd. Vehicule non ajouté.");
 			}
 		}
-		else if((v.getPoidsVide() + chargeDroite + chargeGauche) > chargeMax){
+		else if((v.getPoidsVide() + raD.getCharge() + raG.getCharge()) > chargeMax){
 			throw new WeightException("Erreur : Vehicule trop lourd. Vehicule non ajouté.");
 		}
 	}
 
+	/**
+	 * débarquer les véhicules
+	 */
 	public void debarquement(){
-		System.out.println("Debarquement des vehicules...\n");
 		Vehicle deb;
 
-		while(!rangGauche.isEmpty() || !rangDroite.isEmpty()){
-			if(chargeDroite >= chargeGauche){
-				deb = rangDroite.pollFirst();
+		if(!raG.getRangee().isEmpty() || !raD.getRangee().isEmpty()){
+			if(raD.getCharge() >= raG.getCharge()){
+				deb = raD.getRangee().pollFirst();
 
 				if(deb instanceof Camion){
 					Camion c = (Camion)deb;
-					chargeDroite -= c.getPoidsVide() + c.getPoidsCargaison();
+					raD.pickCharge(c.getPoidsVide() + c.getPoidsCargaison());
 				}
 				else{
-					chargeDroite -= deb.getPoidsVide();
+					raD.pickCharge(deb.getPoidsVide());
 				}
 			}
 			else{
-				deb = rangGauche.pollFirst();
+				deb = raG.getRangee().pollFirst();
 
 				if(deb instanceof Camion){
 					Camion c = (Camion)deb;
-					chargeGauche -= c.getPoidsVide() + c.getPoidsCargaison();
+					raG.pickCharge(c.getPoidsVide() + c.getPoidsCargaison());
 				}
 				else{
-					chargeGauche -= deb.getPoidsVide();
+					raG.pickCharge(deb.getPoidsVide());
 				}
 			}
 
-			System.out.println("Vehicule débarqué :\n\t"+deb+"\n");
+			System.out.println("\tVehicule débarqué :\n\t\t"+deb+"\n");
+		}
+		else{
+			System.out.println("\tLa cale est vide.");
 		}
 	}
-	
-	public Rangee getRangee(){
-		return this.rangee;
-	}
 
+	/**
+	 * afficher la position des véhicules dans la clade de ferry et un ticket pour chaque véhicule
+	 */
 	public String toString(){
 		String str = "\nFerry :";
 
 		str += "\n\tRangée gauche :\n";
 
-		for(Vehicle v : rangGauche){
-			str+="\t- "+v+"\n";
-		}
+		str += raG;
 
 		str += "\n\tRangée droite :\n";
 
-		for(Vehicle v : rangDroite){
-			str+="\t- "+v+"\n";
-		}
+		str += raD;
 
-		str+="\nPoids à gauche : "+chargeGauche+" / Poids à droite : "+chargeDroite+"\n\n";
+		str+="\nPoids à gauche : "+raG.getCharge()+" / Poids à droite : "+raD.getCharge()+"\n\n";
 
 		str += "Listing des tickets :\n";
 

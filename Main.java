@@ -1,9 +1,15 @@
-
+/**
+ * @author Roux-Akel
+ *
+ */
 public class Main {
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
-		Ferry ferry = new Ferry(50, 75);
+		Ferry ferry = new Ferry(25, 7.5);
 		
 		Voiture v1 = new Voiture("RM 1054 FF", 1.2, 4.2, new Conducteur("Martin", "Jeanne", "22FF"), 2);
 		Voiture v2 = new Voiture("PO 377 AA", 1.4, 4.5, new Conducteur("Dupont", "Vincent", "A55"), 1);
@@ -21,8 +27,11 @@ public class Main {
 
 		System.out.println(ferry);
 
+		System.out.println("Débarquement des vehicules : \n");
 
-		ferry.debarquement();
+		for(int i = 0; i < vehicles.length; ++i){
+			ferry.debarquement();
+		}
 	}	
 
 }
