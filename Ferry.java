@@ -1,5 +1,8 @@
 import java.util.*;
 
+/**
+ * @author Roux-Akel
+ */
 public class Ferry{
 	
 	private Rangee raD;
@@ -11,6 +14,11 @@ public class Ferry{
 	private double chargeMax;
 	private int nbPassagers;
 
+	/**
+	 * constructeur parametré d'un Ferry
+	 * @param taille de la cale
+	 * @param chargeMax de la cale
+	 */
 	Ferry(double taille, double chargeMax){
 		this.taille = taille;
 		this.chargeMax = chargeMax;
@@ -22,6 +30,12 @@ public class Ferry{
 		this.listing = new TreeSet<Ticket>();
 	}
 
+	/**
+	 * Cette fonction a pour but de proceder a l'embarquement d'un véhicule, la gestion des erreurs
+	 * à été implantée
+	 * @param v véhicule
+	 * @return 1 si embarquement réussi, -1 sinon
+	 */
 	public int embarquement(Vehicle v){
 		if(raD.getCharge() >= raG.getCharge()){
 			try{
@@ -79,12 +93,25 @@ public class Ferry{
 		return 1;
 	}
 
+	/**
+	 * Cette fonction a pour but de vérifier si la taille restante d'une rangée est suffisante pour embarquer un véhicule
+	 * Lance une exception en cas de dépassement de la longueur max
+	 * @param v véhicule
+	 * @param longueur de la rangée
+	 * @throws LengthException
+	 */
 	private void verifTaille(Vehicle v, double longueur) throws LengthException{
 		if((v.getLongueur()+longueur) >= taille){
 			throw new LengthException("Erreur : Taille restante insuffisante. Vehicule non ajouté.");
 		}
 	}
 
+	/**
+	 * Cette fonction a pour but de verifier si le poids restant de la cale est suffisant pour embarquer un vehicule
+	 * Lance une exception en cas de dépassement du poids max
+	 * @param v véhicule
+	 * @throws WeightException
+	 */
 	private void verifPoids(Vehicle v) throws WeightException{
 		if(v instanceof Camion){
 			Camion c = (Camion)v;
@@ -97,12 +124,17 @@ public class Ferry{
 		}
 	}
 
+	/**
+	 * Cette fonction a pour but de proceder au debarquement d'un véhicule, elle vérifie si la cale n'est
+	 * pas vide avant d'y proceder
+	 */
 	public void debarquement(){
 		Vehicle deb;
 
 		if(!raG.getRangee().isEmpty() || !raD.getRangee().isEmpty()){
 			if(raD.getCharge() >= raG.getCharge()){
 				deb = raD.getRangee().pollFirst();
+				raD.decrRang();
 
 				if(deb instanceof Camion){
 					Camion c = (Camion)deb;
@@ -114,7 +146,7 @@ public class Ferry{
 			}
 			else{
 				deb = raG.getRangee().pollFirst();
-
+				raG.decrRang();
 				if(deb instanceof Camion){
 					Camion c = (Camion)deb;
 					raG.pickCharge(c.getPoidsVide() + c.getPoidsCargaison());
@@ -131,6 +163,10 @@ public class Ferry{
 		}
 	}
 
+	/**
+	 * Cette fonction a pou but d'afficher les vehicules présents dans les deux rangées, puis d'afficher
+	 * un listing des tickets triés dans l'ordre alphabetique des Conducteurs des vehicules
+	 */
 	public String toString(){
 		String str = "\nFerry :";
 
