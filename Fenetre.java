@@ -61,10 +61,10 @@ public class Fenetre extends JFrame{
  				Vehicle deb = ferry.debarquement();
 
  				if(deb == null){
- 					Infobulle caleVide = new Infobulle("Debarquement", "La cale est vide !");
+ 					Infobulle caleVide = new Infobulle("Debarquement", "La cale est vide !", 350, 130);
  				}
  				else{
- 					Infobulle debarquement = new Infobulle("Debarquement", "Debarquement : "+deb.getImmatriculation());
+ 					Infobulle debarquement = new Infobulle("Debarquement", "Debarquement : "+deb.getImmatriculation(), 350, 130);
  				}
  			}
  		});

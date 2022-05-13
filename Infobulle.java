@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.util.*;
 
 public class Infobulle extends JFrame{
-	Infobulle(String title, String message){
-		this.setSize(400, 130);
+	Infobulle(String title, String message, int width, int height){
+		this.setSize(width, height);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setTitle(title);

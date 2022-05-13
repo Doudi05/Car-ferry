@@ -48,7 +48,7 @@ public class Ticket implements Comparable<Object>{
 			tarif = 35.0 + 3*v.getNbPassengers();
 		}else if(vehicle instanceof Camion) {
 			Camion v = (Camion)vehicle;
-			tarif = 45.0 + 0.1*v.getPoidsCargaison();
+			tarif = 45.0 + 0.1*(v.getPoidsCargaison()*1000);
 		}
 	}
 

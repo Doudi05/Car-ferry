@@ -45,8 +45,6 @@ public class FenCale extends JFrame{
 			++i;
 		}
 
-		i = 0;
-
 		JList<Vehicle> listGauche = new JList<Vehicle>(vG);
 		listGauche.setPreferredSize(new Dimension(250, 150));
 		listGauche.setBackground(colList);
@@ -57,7 +55,7 @@ public class FenCale extends JFrame{
 				if(arg0.getValueIsAdjusting()){
 	        		Ticket t = search(listGauche.getSelectedValue().getConducteur().getNom());
 
-	        		Infobulle ticket = new Infobulle("TICKET", "G"+t);
+	        		Infobulle ticket = new Infobulle("TICKET", "G"+t, 400, 130);
 
 	        	}
 	        	else{
@@ -78,7 +76,7 @@ public class FenCale extends JFrame{
 				if(arg0.getValueIsAdjusting()){
 	        		Ticket t = search(listDroite.getSelectedValue().getConducteur().getNom());
 
-	        		Infobulle ticket = new Infobulle("TICKET", "D"+t);
+	        		Infobulle ticket = new Infobulle("TICKET", "D"+t, 400, 130);
 	        	}
 	        	else{
 	        		listDroite.clearSelection();

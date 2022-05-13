@@ -7,9 +7,10 @@ import java.util.*;
 
 public class FenEmbarquement extends JFrame{
 	private Ferry ferry;
+
 	FenEmbarquement(Ferry ferry){
 		this.ferry = ferry;
-		this.setSize(600, 500);
+		this.setSize(600, 450);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setTitle("CAR FERRY - Embarquement");
@@ -30,7 +31,7 @@ public class FenEmbarquement extends JFrame{
 		JRadioButton rBtn1 = new JRadioButton("Voiture");
 		rBtn1.setSelected(true);
 
-    	JRadioButton rBtn2 = new JRadioButton("Camtion");
+    	JRadioButton rBtn2 = new JRadioButton("Camion");
 
     	ButtonGroup bg = new ButtonGroup(); 
     	bg.add(rBtn1);
@@ -46,82 +47,107 @@ public class FenEmbarquement extends JFrame{
 
     	this.add(top, BorderLayout.NORTH);
 
+    	//dimensions des differents JTextFields
     	Dimension big_size = new Dimension(200, 20);
     	Dimension medium_size = new Dimension(50, 20);
     	Dimension little_size = new Dimension(25, 20);
-    	Dimension label_size = new Dimension(350, 20);
 
-    	mid.setLayout(flow);
+    	mid.setLayout(new GridLayout(8, 1));
+
+    	//on créée un panel pour chaque ligne du formulaire, c'est la seule maniere que l'on a trouvé
+    	//pour une disposition correcte des elements
+    	JPanel p1 = new JPanel();
+    	JPanel p2 = new JPanel();
+    	JPanel p3 = new JPanel();
+    	JPanel p4 = new JPanel();
+    	JPanel p5 = new JPanel();
+    	JPanel p6 = new JPanel();
+    	JPanel p7 = new JPanel();
+    	JPanel p8 = new JPanel();
+    	p1.setLayout(flow);
+    	p1.setBackground(colForm);
+    	p2.setLayout(flow);
+    	p2.setBackground(colForm);
+    	p3.setLayout(flow);
+    	p3.setBackground(colForm);
+    	p4.setLayout(flow);
+    	p4.setBackground(colForm);
+    	p5.setLayout(flow);
+    	p5.setBackground(colForm);
+    	p6.setLayout(flow);
+    	p6.setBackground(colForm);
+    	p7.setLayout(flow);
+    	p7.setBackground(colForm);
+    	p8.setLayout(flow);
+    	p8.setBackground(colForm);
 
     	JLabel immat = new JLabel("Entrez immatriculation du vehicule (20 char max)");
-    	JTextField immatTF = new JTextField();
+    	JTextField immatTF = new JTextField("");
     	immatTF.setPreferredSize(big_size);
-    	immat.setPreferredSize(label_size);
+    	//immat.setPreferredSize(label_size);
     	immat.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(immat);
-    	mid.add(immatTF);
+    	p1.add(immat);
+    	p1.add(immatTF);
 
     	JLabel pass = new JLabel("Entrez le nombre de passagers");
-    	JTextField passTF = new JTextField();
+    	JTextField passTF = new JTextField("");
     	passTF.setPreferredSize(little_size);
-    	pass.setPreferredSize(label_size);
     	pass.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(pass);
-    	mid.add(passTF);
+    	p2.add(pass);
+    	p2.add(passTF);
 
     	JLabel pds = new JLabel("Entrez le poids du vehicule (en tonnes)");
-    	JTextField pdsTF = new JTextField();
+    	JTextField pdsTF = new JTextField("");
     	pdsTF.setPreferredSize(medium_size);
-    	pds.setPreferredSize(label_size);
     	pds.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(pds);
-    	mid.add(pdsTF);
+    	p3.add(pds);
+    	p3.add(pdsTF);
 
     	JLabel len = new JLabel("Entrez la longueur du vehicule (en metres)");
-    	JTextField lenTF = new JTextField();
+    	JTextField lenTF = new JTextField("");
     	lenTF.setPreferredSize(medium_size);
-    	len.setPreferredSize(label_size);
     	len.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(len);
-    	mid.add(lenTF);
+    	p4.add(len);
+    	p4.add(lenTF);
 
     	JLabel pdsc = new JLabel("Entrez le poids de la cargaison du camion (en tonnes)");
-    	JTextField pdscTF = new JTextField();
+    	JTextField pdscTF = new JTextField("");
     	pdscTF.setEnabled(false);
     	pdscTF.setPreferredSize(medium_size);
-    	pdsc.setPreferredSize(label_size);
     	pdsc.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(pdsc);
-    	mid.add(pdscTF);
+    	p5.add(pdsc);
+    	p5.add(pdscTF);
 
     	JLabel nom = new JLabel("Entrez le nom du conducteur");
-    	JTextField nomTF = new JTextField();
+    	JTextField nomTF = new JTextField("");
     	nomTF.setPreferredSize(big_size);
-    	nom.setPreferredSize(label_size);
     	nom.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(nom);
-    	mid.add(nomTF);
+    	p6.add(nom);
+    	p6.add(nomTF);
 
     	JLabel pnom = new JLabel("Entrez le prenom du conducteur");
-    	JTextField pnomTF = new JTextField();
+    	JTextField pnomTF = new JTextField("");
     	pnomTF.setPreferredSize(big_size);
-    	pnom.setPreferredSize(label_size);
     	pnom.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(pnom);
-    	mid.add(pnomTF);
+    	p7.add(pnom);
+    	p7.add(pnomTF);
 
     	JLabel num = new JLabel("Entrez le numero de permis de conduire");
-    	JTextField numTF = new JTextField();
+    	JTextField numTF = new JTextField("");
     	numTF.setPreferredSize(big_size);
-    	num.setPreferredSize(label_size);
     	num.setHorizontalAlignment(SwingConstants.RIGHT);
-    	mid.add(num);
-    	mid.add(numTF);
+    	p8.add(num);
+    	p8.add(numTF);
 
-    	
-
-    	
-
+    
+    	mid.add(p1);
+    	mid.add(p2);
+    	mid.add(p3);
+    	mid.add(p4);
+    	mid.add(p5);
+    	mid.add(p6);
+    	mid.add(p7);
+    	mid.add(p8);
     	this.add(mid, BorderLayout.CENTER);
 
 
@@ -132,15 +158,19 @@ public class FenEmbarquement extends JFrame{
 
     	this.add(bot, BorderLayout.SOUTH);
 
+    	//Actions a effectuer lorque l'on coche le bouton "voiture"
     	rBtn1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				pdscTF.setText("");
 				pdscTF.setEnabled(false);
 				passTF.setEnabled(true);
 			}
 		});
 
+    	//Actions a effectuer lorque l'on coche le bouton "camion"
 		rBtn2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				passTF.setText("");
 				pdscTF.setEnabled(true);
 				passTF.setEnabled(false);
 
@@ -149,23 +179,68 @@ public class FenEmbarquement extends JFrame{
 
 		valid.addActionListener(e -> {
 			int ret = 0;
-			if(rBtn1.isSelected()){
-				ret = ferry.embarquement(new Voiture(immatTF.getText(), Double.parseDouble(pdsTF.getText()), Double.parseDouble(lenTF.getText()), new Conducteur(nomTF.getText(), pnomTF.getText(), numTF.getText()), Integer.parseInt(passTF.getText())));
+
+			//on verifie chaque donnée entrée dans le formulaire et on affiche une infobulle d'erreur si des champs son
+			//absents ou incorrects
+
+			//on commence par les verifications propres a la voiture et au camion
+
+			//nombre de passagers : un entier
+			if(rBtn1.isSelected() && passTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
 			}
-			else{
-				ret = ferry.embarquement(new Camion(immatTF.getText(), Double.parseDouble(pdsTF.getText()), Double.parseDouble(lenTF.getText()), new Conducteur(nomTF.getText(), pnomTF.getText(), numTF.getText()), Double.parseDouble(pdscTF.getText())));
+			//poids de la cargaison : un double
+			else if(rBtn2.isSelected() && pdscTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
 			}
 
-			if(ret == 1){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement reussi !");
-				this.dispose();
+			//on verifie ensuite les données communes a tout type de véhicule
+
+			//immatriculation : une chaine de caractere non vide et de taille inferieure a 20 caracteres
+			if(immatTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
 			}
-			else if(ret == -1){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Limite de poids atteinte !");
+			//poids à vide du vehicule : un double non nul
+			else if(pdsTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
 			}
+			//longueur du vehicule : un double non nul
+			else if(lenTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
+			}
+			//nom du conducteur : une chaine de caracteres non vide
+			else if(nomTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
+			}
+			//prenom du conducteur : une chaine de caracteres non vide
+			else if(pnomTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
+			}
+			//numero du permis de conduire du conducteur : une chaine de caracteres non vide
+			else if(numTF.getText().equals("")){
+				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
+			}
+			//si on arrive ici, on a aucune erreur donc on procede a l'embarquement du vehicule
 			else{
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Limite de taille atteinte !");
-			}					
+				if(rBtn1.isSelected()){
+					ret = ferry.embarquement(new Voiture(immatTF.getText(), Double.parseDouble(pdsTF.getText()), Double.parseDouble(lenTF.getText()), new Conducteur(nomTF.getText(), pnomTF.getText(), numTF.getText()), Integer.parseInt(passTF.getText())));
+				}
+				else{
+					ret = ferry.embarquement(new Camion(immatTF.getText(), Double.parseDouble(pdsTF.getText()), Double.parseDouble(lenTF.getText()), new Conducteur(nomTF.getText(), pnomTF.getText(), numTF.getText()), Double.parseDouble(pdscTF.getText())));
+				}
+
+				//on affiche l'infobulle correspondante au resultat de l'embarquement
+				if(ret == 1){
+					Infobulle check = new Infobulle("Embarquement", "Embarquement reussi !", 350, 130);
+					this.dispose();
+				}
+				else if(ret == -1){
+					Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Limite de poids atteinte !", 450, 130);
+				}
+				else{
+					Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Limite de taille atteinte !", 450, 130);
+				}		
+			}			
      	});
 
 		this.setVisible(true);
