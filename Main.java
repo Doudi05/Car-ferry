@@ -4,7 +4,7 @@
 public class Main {
 	public static void main(String[] args) {
 
-		Ferry ferry = new Ferry(25, 7.5);
+		Ferry ferry = new Ferry(25, 50);
 		
 		//creation de tous les vehicules requis pour l'exercice
 		Voiture v1 = new Voiture("RM 1054 FF", 1.2, 4.2, new Conducteur("Martin", "Jeanne", "22FF"), 2);
@@ -16,13 +16,13 @@ public class Main {
 		Camion c3 = new Camion("BN 321 XC", 4.5, 15, new Conducteur("Lambert", "Alain", "C44Djk"), 18);
 
 		//on stocke les vehicules dans un tableau et on les embarque un a un dans le ferry
-		Vehicle []vehicles = {c1, v1, v2, c2, v3, c3};
+		Vehicle []vehicles = {v3, c1, c2};
 
 		for(int i = 0; i < vehicles.length; ++i){
 			ferry.embarquement(vehicles[i]);
 		}
 
-		//affiche des informations demandées
+		/*//affiche des informations demandées
 		System.out.println(ferry);
 
 
@@ -31,7 +31,9 @@ public class Main {
 
 		for(int i = 0; i < vehicles.length; ++i){
 			ferry.debarquement();
-		}
+		}*/
+
+		Fenetre fen = new Fenetre(ferry);
 	}	
 
 }

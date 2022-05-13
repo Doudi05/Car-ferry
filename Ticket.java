@@ -58,20 +58,13 @@ public class Ticket implements Comparable<Object>{
 	public double getTarif(){
 		return this.tarif;
 	}
-	
-	/**
-	 * informations du ticket : nom et le prénom du conducteur
-	 *                          La place du véhicule dans la cale
-	 *                          le rang dans la rangée
-	 *                          Le tarif de la traversée
-	 */
+
+	public String getNom(){
+		return this.nom;
+	}
+
 	public String toString(){
-		String st1 = "\t"+nom + " " + prenom + "\n";
-		String st2 = "\tPosition du véhicule dans la cale : " + place + "\n";
-		String st3 = "\tnuméro du rang dans la rangée : " + rang + "\n";
-		String st4 = "\tLe tarif de la traversée : " + tarif;
-		return st1 + st2 + st3 + st4 + "\n";
-		
+		return rang + " " + nom + " " + prenom + " : " + vehicle.getImmatriculation() + " : " + tarif +"euros";
 	}
 
 	/**

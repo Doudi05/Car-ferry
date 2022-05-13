@@ -55,8 +55,12 @@ public class Ferry{
 				}
 			}
 			catch(Exception e){
-				System.out.println(e.getMessage());
-				return -1;
+				if(e instanceof WeightException){
+					return -1;
+				}
+				else{
+					return -2;
+				}
 			}
 		}
 		else if(raD.getCharge() < raG.getCharge()){
@@ -78,8 +82,12 @@ public class Ferry{
 				}
 			}
 			catch(Exception e){
-				System.out.println(e.getMessage());
-				return -1;
+				if(e instanceof WeightException){
+					return -1;
+				}
+				else{
+					return -2;
+				}
 			}
 		}
 
@@ -128,7 +136,7 @@ public class Ferry{
 	 * Cette fonction a pour but de proceder au debarquement d'un véhicule, elle vérifie si la cale n'est
 	 * pas vide avant d'y proceder
 	 */
-	public void debarquement(){
+	public Vehicle debarquement(){
 		Vehicle deb;
 
 		if(!raG.getRangee().isEmpty() || !raD.getRangee().isEmpty()){
@@ -156,12 +164,21 @@ public class Ferry{
 				}
 			}
 
-			System.out.println("\tVehicule débarqué :\n\t\t"+deb+"\n");
+			return deb;
 		}
-		else{
-			System.out.println("\tLa cale est vide.");
-		}
+		return null;
 	}
+
+	public Rangee getRangee(char c){
+		if(c == 'D'){
+			return this.raD;
+		}
+		return this.raG;
+	}
+
+	public TreeSet<Ticket> getTickets(){
+		return this.listing;
+	} 
 
 	/**
 	 * Cette fonction a pou but d'afficher les vehicules présents dans les deux rangées, puis d'afficher
