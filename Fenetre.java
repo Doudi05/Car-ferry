@@ -4,6 +4,8 @@ import javax.swing.*;
 
 public class Fenetre extends JFrame{
 	private Ferry ferry;
+	JButton embarq, debarq;
+
 	Fenetre(Ferry ferry){
 		this.ferry = ferry;
 		this.setSize(500, 200);
@@ -11,6 +13,9 @@ public class Fenetre extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setTitle("CAR FERRY");
+
+		//controleur des boutons
+		Controler control = new Controler(this);
 
 		//couleurs de l'application
 		Color colMenu = new Color(174,248,142);
@@ -45,29 +50,13 @@ public class Fenetre extends JFrame{
         JLabel label = new JLabel("Nouvelle croisiere");
         label.setHorizontalAlignment(SwingConstants.CENTER);
 
- 		JButton embarq = new JButton("Embarquer");
- 		JButton debarq = new JButton("Debarquer");
+ 		embarq = new JButton("Embarquer");
+ 		debarq = new JButton("Debarquer");
  		embarq.setBackground(colButton);
  		debarq.setBackground(colButton);
 
- 		embarq.addActionListener(new ActionListener(){
- 			public void actionPerformed(ActionEvent e){
- 				FenEmbarquement emb = new FenEmbarquement(ferry);
- 			}
- 		});
-
- 		debarq.addActionListener(new ActionListener(){
- 			public void actionPerformed(ActionEvent e){
- 				Vehicle deb = ferry.debarquement();
-
- 				if(deb == null){
- 					Infobulle caleVide = new Infobulle("Debarquement", "La cale est vide !", 350, 130);
- 				}
- 				else{
- 					Infobulle debarquement = new Infobulle("Debarquement", "Debarquement : "+deb.getImmatriculation(), 350, 130);
- 				}
- 			}
- 		});
+ 		embarq.addActionListener(control);
+ 		debarq.addActionListener(control);
 
         top.add(label);
 
@@ -82,5 +71,17 @@ public class Fenetre extends JFrame{
 
 
 		this.setVisible(true);
+	}
+
+	public Ferry getFerry(){
+		return this.ferry;
+	}
+
+	public JButton getButtonEmbarq(){
+		return this.embarq;
+	}
+
+	public JButton getButtonDebarq(){
+		return this.debarq;
 	}
 }
