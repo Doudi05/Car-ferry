@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.util.*;
 
 public class Infobulle extends JFrame{
+	private JButton ok;
+
 	Infobulle(String title, String message, int width, int height){
 		this.setSize(width, height);
 		this.setLocationRelativeTo(null);
@@ -18,17 +20,19 @@ public class Infobulle extends JFrame{
 		JLabel label = new JLabel(message);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JButton ok = new JButton("OK");
+		ok = new JButton("OK");
 
 		panLabel.add(label);
 		panButton.add(ok);
 
-		ok.addActionListener(e -> {
-         	this.dispose();
-     	});
+		
 
 		this.add(panLabel);
 		this.add(panButton);
 		this.setVisible(true);
+	}
+
+	public JButton getButtonOk(){
+		return this.ok;
 	}
 }

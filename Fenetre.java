@@ -4,7 +4,8 @@ import javax.swing.*;
 
 public class Fenetre extends JFrame{
 	private Ferry ferry;
-	JButton embarq, debarq;
+	private JMenuItem i1;
+	private JButton embarq, debarq;
 
 	Fenetre(Ferry ferry){
 		this.ferry = ferry;
@@ -31,14 +32,9 @@ public class Fenetre extends JFrame{
 		//creation de la barre de menu
 		JMenuBar mb = new JMenuBar();  
 		JMenu menu = new JMenu("Cale du ferry");
-		JMenuItem i1 = new JMenuItem("Afficher la cale");  
+		i1 = new JMenuItem("Afficher la cale");  
+		i1.addActionListener(control);
 		menu.add(i1);
-
-		i1.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				FenCale cale = new FenCale(ferry);
-			}
-		});
 		mb.add(menu);  
 		mb.setBackground(colMenu);
         this.setJMenuBar(mb);  
@@ -75,6 +71,10 @@ public class Fenetre extends JFrame{
 
 	public Ferry getFerry(){
 		return this.ferry;
+	}
+
+	public JMenuItem getItem(){
+		return this.i1;
 	}
 
 	public JButton getButtonEmbarq(){

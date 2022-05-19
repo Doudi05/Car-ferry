@@ -8,6 +8,9 @@ import java.util.*;
 public class FenEmbarquement extends JFrame{
 	private Ferry ferry;
 	private Vehicle emb = null;
+	private JButton valid;
+	private JRadioButton rBtn1, rBtn2;
+	private ChampForm immat, pass, pds, len, pdsc, nom, pnom, num;
 
 	FenEmbarquement(Ferry ferry){
 		this.ferry = ferry;
@@ -29,10 +32,10 @@ public class FenEmbarquement extends JFrame{
 
 		JLabel typeV = new JLabel("Quel est le type de vehicule ?");
 
-		JRadioButton rBtn1 = new JRadioButton("Voiture");
+		rBtn1 = new JRadioButton("Voiture");
 		rBtn1.setSelected(true);
 
-    	JRadioButton rBtn2 = new JRadioButton("Camion");
+    	rBtn2 = new JRadioButton("Camion");
 
     	ButtonGroup bg = new ButtonGroup(); 
     	bg.add(rBtn1);
@@ -56,15 +59,15 @@ public class FenEmbarquement extends JFrame{
     	mid.setLayout(new GridLayout(8, 1));
     	
 
-    	ChampForm immat = new ChampForm("Entrez immatriculation du vehicule (20 char max)", big_size, flow, colForm);
-    	ChampForm pass = new ChampForm("Entrez le nombre de passagers", little_size, flow, colForm);
-    	ChampForm pds = new ChampForm("Entrez le poids du vehicule (en tonnes)", medium_size, flow, colForm);
-    	ChampForm len = new ChampForm("Entrez la longueur du vehicule (en metres)", medium_size, flow, colForm);
-    	ChampForm pdsc = new ChampForm("Entrez le poids de la cargaison du camion (en tonnes)", medium_size, flow, colForm);
+    	immat = new ChampForm("Entrez immatriculation du vehicule (20 char max)", big_size, flow, colForm);
+    	pass = new ChampForm("Entrez le nombre de passagers", little_size, flow, colForm);
+    	pds = new ChampForm("Entrez le poids du vehicule (en tonnes)", medium_size, flow, colForm);
+    	len = new ChampForm("Entrez la longueur du vehicule (en metres)", medium_size, flow, colForm);
+    	pdsc = new ChampForm("Entrez le poids de la cargaison du camion (en tonnes)", medium_size, flow, colForm);
     	pdsc.setEnabled(false);
-    	ChampForm nom = new ChampForm("Entrez le nom du conducteur", big_size, flow, colForm);
-    	ChampForm pnom = new ChampForm("Entrez le prenom du conducteur", big_size, flow, colForm);
-    	ChampForm num = new ChampForm("Entrez le numero de permis de conduire", big_size, flow, colForm);
+    	nom = new ChampForm("Entrez le nom du conducteur", big_size, flow, colForm);
+    	pnom = new ChampForm("Entrez le prenom du conducteur", big_size, flow, colForm);
+    	num = new ChampForm("Entrez le numero de permis de conduire", big_size, flow, colForm);
 
     
     	mid.add(immat);
@@ -79,7 +82,7 @@ public class FenEmbarquement extends JFrame{
 
 
     	bot.setLayout(new BorderLayout());
-    	JButton valid = new JButton("Valider");
+    	valid = new JButton("Valider");
     	valid.setPreferredSize(new Dimension(100, 40));
     	bot.add(valid, BorderLayout.NORTH);
 
@@ -104,74 +107,50 @@ public class FenEmbarquement extends JFrame{
 			}
 		});
 
-		valid.addActionListener(e -> {
-			int ret = 0;
-
-			//on verifie chaque donnée entrée dans le formulaire et on affiche une infobulle d'erreur si des champs son
-			//absents ou incorrects
-
-			//on commence par les verifications propres a la voiture et au camion
-
-			//nombre de passagers : un entier
-			if(rBtn1.isSelected() && pass.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-			//poids de la cargaison : un double
-			else if(rBtn2.isSelected() && pdsc.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-
-			//on verifie ensuite les données communes a tout type de véhicule
-
-			//immatriculation : une chaine de caractere non vide et de taille inferieure a 20 caracteres
-			if(immat.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-			//poids à vide du vehicule : un double non nul
-			else if(pds.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-			//longueur du vehicule : un double non nul
-			else if(len.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-			//nom du conducteur : une chaine de caracteres non vide
-			else if(nom.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-			//prenom du conducteur : une chaine de caracteres non vide
-			else if(pnom.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-			//numero du permis de conduire du conducteur : une chaine de caracteres non vide
-			else if(num.getData().isEmpty()){
-				Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Champs Manquants ou incorrects !", 500, 130);
-			}
-			//si on arrive ici, on a aucune erreur donc on procede a l'embarquement du vehicule
-			else{
-				if(rBtn1.isSelected()){
-					emb = new Voiture(immat.getData(), Double.parseDouble(pds.getData()), Double.parseDouble(len.getData()), new Conducteur(nom.getData(), pnom.getData(), num.getData()), Integer.parseInt(pass.getData()))
-					ret = ferry.embarquement(emb);
-				}
-				else{
-					emb = new Camion(immat.getData(), Double.parseDouble(pds.getData()), Double.parseDouble(len.getData()), new Conducteur(nom.getData(), pnom.getData(), num.getData()), Double.parseDouble(pdsc.getData()))
-					ret = ferry.embarquement(emb);
-				}
-
-				//on affiche l'infobulle correspondante au resultat de l'embarquement
-				if(ret == 1){
-					Infobulle check = new Infobulle("Embarquement", "Embarquement reussi !", 350, 130);
-					this.dispose();
-				}
-				else if(ret == -1){
-					Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Limite de poids atteinte !", 450, 130);
-				}
-				else{
-					Infobulle check = new Infobulle("Embarquement", "Embarquement impossible : Limite de taille atteinte !", 450, 130);
-				}		
-			}			
-     	});
-
 		this.setVisible(true);
+	}
+
+	public JRadioButton getRbtn1(){
+		return this.rBtn1;
+	}
+
+	public JRadioButton getRbtn2(){
+		return this.rBtn2;
+	}
+
+	public ChampForm getImmat(){
+		return this.immat;
+	}
+
+	public ChampForm getPass(){
+		return this.pass;
+	}
+
+	public ChampForm getPds(){
+		return this.pds;
+	}
+
+	public ChampForm getLen(){
+		return this.len;
+	}
+
+	public ChampForm getPdsc(){
+		return this.pdsc;
+	}
+
+	public ChampForm getNom(){
+		return this.nom;
+	}
+
+	public ChampForm getPnom(){
+		return this.pnom;
+	}
+
+	public ChampForm getNum(){
+		return this.num;
+	}
+
+	public JButton getButtonValid(){
+		return this.valid;
 	}
 }

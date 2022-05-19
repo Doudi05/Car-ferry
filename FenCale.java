@@ -7,6 +7,8 @@ import java.util.*;
 
 public class FenCale extends JFrame{
 	private Ferry ferry;
+	private JList<Vehicle> listGauche, listDroite;
+
 	FenCale(Ferry ferry){
 		this.ferry = ferry;
 		this.setSize(600, 250);
@@ -45,44 +47,15 @@ public class FenCale extends JFrame{
 			++i;
 		}
 
-		JList<Vehicle> listGauche = new JList<Vehicle>(vG);
+		listGauche = new JList<Vehicle>(vG);
 		listGauche.setPreferredSize(new Dimension(250, 150));
 		listGauche.setBackground(colList);
 		listGauche.setBorder(BorderFactory.createLineBorder(Color.black));
 
-		listGauche.addListSelectionListener(new ListSelectionListener(){
-			public void valueChanged(ListSelectionEvent arg0) {
-				if(arg0.getValueIsAdjusting()){
-	        		Ticket t = search(listGauche.getSelectedValue().getConducteur().getNom());
-
-	        		Infobulle ticket = new Infobulle("TICKET", "G"+t, 400, 130);
-
-	        	}
-	        	else{
-	        		listGauche.clearSelection();
-	        	}
-
-
-            }
-		});
-
-		JList<Vehicle> listDroite = new JList<Vehicle>(vD);
+		listDroite = new JList<Vehicle>(vD);
 		listDroite.setPreferredSize(new Dimension(250, 150));
 		listDroite.setBackground(colList);
 		listDroite.setBorder(BorderFactory.createLineBorder(Color.black));
-
-		listDroite.addListSelectionListener(new ListSelectionListener(){
-			public void valueChanged(ListSelectionEvent arg0) {
-				if(arg0.getValueIsAdjusting()){
-	        		Ticket t = search(listDroite.getSelectedValue().getConducteur().getNom());
-
-	        		Infobulle ticket = new Infobulle("TICKET", "D"+t, 400, 130);
-	        	}
-	        	else{
-	        		listDroite.clearSelection();
-	        	}
-            }
-		});
 
 		left.add(listGauche);
 		right.add(listDroite);
@@ -101,5 +74,17 @@ public class FenCale extends JFrame{
 		}
 
 		return null;
+	}
+
+	public JList<Vehicle> getList(char c){
+		if(c == 'G'){
+			return this.listGauche;
+		}
+		else if(c == 'D'){
+			return this.listDroite;
+		}
+		else{
+			return null;
+		}
 	}
 }
