@@ -29,7 +29,24 @@ public class Controler implements ActionListener, ListSelectionListener{
 
 		if(ev.getSource() == embarq){
 			emb = new FenEmbarquement(f.getFerry());
+			JRadioButton btn1 = emb.getRbtn1();
+			JRadioButton btn2 = emb.getRbtn2();
 
+			btn1.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					emb.getPdsc().setText("");
+					emb.getPdsc().setEnabled(false);
+					emb.getPass().setEnabled(true);
+				}
+			});
+
+			btn2.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					emb.getPass().setText("");
+					emb.getPdsc().setEnabled(true);
+					emb.getPass().setEnabled(false);
+				}
+			});
 			//on definit l'ecouteur du bouton valider dans le controleur de la fenetre principale
 			emb.getButtonValid().addActionListener(ev1 -> {
 				int ret = 0;

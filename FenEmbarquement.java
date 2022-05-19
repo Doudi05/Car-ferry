@@ -88,25 +88,6 @@ public class FenEmbarquement extends JFrame{
 
     	this.add(bot, BorderLayout.SOUTH);
 
-    	//Actions a effectuer lorque l'on coche le bouton "voiture"
-    	rBtn1.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				pdsc.setText("");
-				pdsc.setEnabled(false);
-				pass.setEnabled(true);
-			}
-		});
-
-    	//Actions a effectuer lorque l'on coche le bouton "camion"
-		rBtn2.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				pass.setText("");
-				pdsc.setEnabled(true);
-				pass.setEnabled(false);
-
-			}
-		});
-
 		this.setVisible(true);
 	}
 
