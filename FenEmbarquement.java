@@ -1,3 +1,7 @@
+/**
+ * @author Roux-Akel
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,6 +16,10 @@ public class FenEmbarquement extends JFrame{
 	private JRadioButton rBtn1, rBtn2;
 	private ChampForm immat, pass, pds, len, pdsc, nom, pnom, num;
 
+	/**
+     * représente la fenetre contenant le formulaire prévu pour l'embarquement d'un nouveau
+	 * véhicule dans le ferry
+	 */ 
 	FenEmbarquement(Ferry ferry){
 		this.ferry = ferry;
 		this.setSize(600, 450);
@@ -58,7 +66,7 @@ public class FenEmbarquement extends JFrame{
 
     	mid.setLayout(new GridLayout(8, 1));
     	
-
+    	//creation du formulaire
     	immat = new ChampForm("Entrez immatriculation du vehicule (20 char max)", big_size, flow, colForm);
     	pass = new ChampForm("Entrez le nombre de passagers", little_size, flow, colForm);
     	pds = new ChampForm("Entrez le poids du vehicule (en tonnes)", medium_size, flow, colForm);
@@ -91,46 +99,80 @@ public class FenEmbarquement extends JFrame{
 		this.setVisible(true);
 	}
 
+
+	/**
+	 * retourne le bouton radio permettant la selection d'une voiture, utilisé dans le controleur
+	 */ 
 	public JRadioButton getRbtn1(){
 		return this.rBtn1;
 	}
 
+	/**
+	 * retourne le bouton radio permettant la selection d'un camion, utilisé dans le controleur
+	 */ 
 	public JRadioButton getRbtn2(){
 		return this.rBtn2;
 	}
 
+	/**
+	 * retourne le champ de formulaire de l'immatriculation
+	 */ 
 	public ChampForm getImmat(){
 		return this.immat;
 	}
 
+	/**
+	 * retourne le champ de formulaire du nombre de passagers de la voiture
+	 */ 
 	public ChampForm getPass(){
 		return this.pass;
 	}
 
+	/**
+	 * retourne le champ de formulaire du poids du véhicule
+	 */ 
 	public ChampForm getPds(){
 		return this.pds;
 	}
 
+	/**
+	 * retourne le champ de formulaire de la longueur du véhicule
+	 */ 
 	public ChampForm getLen(){
 		return this.len;
 	}
 
+	/**
+	 * retourne le champ de formulaire du poids de la cargaison du camion
+	 */ 
 	public ChampForm getPdsc(){
 		return this.pdsc;
 	}
 
+	/**
+	 * retourne le champ de formulaire du nom du conducteur
+	 */ 
 	public ChampForm getNom(){
 		return this.nom;
 	}
 
+	/**
+	 * retourne le champ de formulaire du prenom du conducteur
+	 */ 
 	public ChampForm getPnom(){
 		return this.pnom;
 	}
 
+	/**
+	 * retourne le champ de formulaire du numero de permis de conduire du conducteur
+	 */ 
 	public ChampForm getNum(){
 		return this.num;
 	}
 
+	/**
+	 * retourne le bouton permettant la validation du formulaire, utilisé dans le controleur
+	 */ 
 	public JButton getButtonValid(){
 		return this.valid;
 	}

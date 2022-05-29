@@ -1,3 +1,7 @@
+/**
+ * @author Roux-Akel
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,6 +13,10 @@ public class FenCale extends JFrame{
 	private Ferry ferry;
 	private JList<Vehicle> listGauche, listDroite;
 
+	/**
+	 * représente la fenetre contenant les deux rangées de la cale ainsi que les
+	 * véhicules qu'elles contiennent
+	 */ 
 	FenCale(Ferry ferry){
 		this.ferry = ferry;
 		this.setSize(600, 250);
@@ -66,6 +74,9 @@ public class FenCale extends JFrame{
 		this.setVisible(true);
 	}
 
+	/**
+	 * recherche un ticket avec un nom donné de conducteur et le renvoie
+	 */ 
 	public Ticket search(String nom){
 		for(Ticket t : ferry.getTickets()){
 			if (t.getNom().equals(nom)){
@@ -76,6 +87,10 @@ public class FenCale extends JFrame{
 		return null;
 	}
 
+
+	/**
+	 * retourne un liste de véhicules contenue dans une des deux rangées 
+	 */
 	public JList<Vehicle> getList(char c){
 		if(c == 'G'){
 			return this.listGauche;

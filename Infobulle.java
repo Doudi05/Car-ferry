@@ -1,3 +1,7 @@
+/**
+ * @author Roux-Akel
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -6,6 +10,10 @@ import java.util.*;
 public class Infobulle extends JFrame{
 	private JButton ok;
 
+	/**
+	 * représente une infobulle contenant des informations suite à une
+	 * action
+	 */ 
 	Infobulle(String title, String message, int width, int height){
 		this.setSize(width, height);
 		this.setLocationRelativeTo(null);
@@ -32,6 +40,9 @@ public class Infobulle extends JFrame{
 		this.setVisible(true);
 	}
 
+	/**
+	 * retourne le bouton "ok" qui va fermer la fenetre, utilisé dans le controleur
+	 */ 
 	public JButton getButtonOk(){
 		return this.ok;
 	}

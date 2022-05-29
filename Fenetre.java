@@ -1,3 +1,7 @@
+/**
+ * @author Roux-Akel
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,6 +11,10 @@ public class Fenetre extends JFrame{
 	private JMenuItem i1;
 	private JButton embarq, debarq;
 
+	/**
+	 * représente la fenêtre principale du ferry, on a besoin du ferry en lui meme
+	 * pour utiliser ses informations
+	 */ 
 	Fenetre(Ferry ferry){
 		this.ferry = ferry;
 		this.setSize(500, 200);
@@ -69,18 +77,30 @@ public class Fenetre extends JFrame{
 		this.setVisible(true);
 	}
 
+	/**
+	 * retourne le ferry utilisé dans l'application
+	 */ 
 	public Ferry getFerry(){
 		return this.ferry;
 	}
 
+	/**
+	 * retourne le menu item i1, utilisé dans le controleur
+	 */  
 	public JMenuItem getItem(){
 		return this.i1;
 	}
 
+	/**
+	 * retourne le bouton d'embarquement, utilisé dans le controleur
+	 */ 
 	public JButton getButtonEmbarq(){
 		return this.embarq;
 	}
 
+	/**
+	 * retourne le bouton de débarquement, utilisé dans le controleur
+	 */ 
 	public JButton getButtonDebarq(){
 		return this.debarq;
 	}
