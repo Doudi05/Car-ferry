@@ -43,8 +43,9 @@ public class Ferry{
 				verifPoids(v);
 				raG.getRangee().offerLast(v);
 				raG.addLongueur(v.getLongueur() + 0.5);
-				listing.add(new Ticket('G', raG.getRang(), v));
 				raG.incrRang();
+				listing.add(new Ticket('G', raG.getRang(), v));
+				
 
 				if(v instanceof Camion){
 					Camion c = (Camion)v;
@@ -69,9 +70,9 @@ public class Ferry{
 				verifPoids(v);
 				raD.getRangee().offerLast(v);
 				raD.addLongueur(v.getLongueur() + 0.5);
-
-				listing.add(new Ticket('D', raD.getRang(), v));
 				raD.incrRang();
+				listing.add(new Ticket('D', raD.getRang(), v));
+				
 
 				if(v instanceof Camion){
 					Camion c = (Camion)v;
@@ -138,11 +139,13 @@ public class Ferry{
 	 */
 	public Vehicle debarquement(){
 		Vehicle deb;
+		char rangeeDeb;
 
 		if(!raG.getRangee().isEmpty() || !raD.getRangee().isEmpty()){
 			if(raD.getCharge() >= raG.getCharge()){
 				deb = raD.getRangee().pollFirst();
 				raD.decrRang();
+				rangeeDeb = 'D';
 
 				if(deb instanceof Camion){
 					Camion c = (Camion)deb;
@@ -155,12 +158,20 @@ public class Ferry{
 			else{
 				deb = raG.getRangee().pollFirst();
 				raG.decrRang();
+				rangeeDeb = 'G';	
 				if(deb instanceof Camion){
 					Camion c = (Camion)deb;
 					raG.pickCharge(c.getPoidsVide() + c.getPoidsCargaison());
 				}
 				else{
 					raG.pickCharge(deb.getPoidsVide());
+				}
+			}
+
+			//on decremente les rangs lors de l'affichage dans la cale
+			for(Ticket t : listing){
+				if(t.getPlace() == rangeeDeb){
+					t.setRang(t.getRang()-1);
 				}
 			}
 

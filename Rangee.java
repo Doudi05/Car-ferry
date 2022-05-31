@@ -18,7 +18,7 @@ public class Rangee {
 		this.rangee = new LinkedList<Vehicle>();
 		
 		this.charge = 0;
-		this.rang = 1;
+		this.rang = 0;
 		this.longueur = 0;
 	}
 	

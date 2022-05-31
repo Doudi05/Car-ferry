@@ -38,6 +38,13 @@ public class Ticket implements Comparable<Object>{
 	public int getRang(){
 		return rang;
 	}
+
+	/**
+	 * modifie le rang du ticket (1, 2 ,3 ...)
+	 */
+	public void setRang(int rang){
+		this.rang = rang;
+	}
 	
 	/**
 	 * calcule le tarif de la traversée pour un véhicule
